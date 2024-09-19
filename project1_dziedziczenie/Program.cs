@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -60,16 +61,39 @@ namespace project1_dziedziczenie
 
         public override float CalculatePerimeter()
         {
-            return (float)Math.Round(2*Math.PI * radius, 2);
+            return (float)Math.Round(2 * Math.PI * radius, 2);
         }
     }
+    class Triangle : Shape
+    {
+        private float sideA;
+        private float sideB;
+        private float sideC;
 
+        public Triangle(float sideA, float sideB, float sideC)
+        {
+            this.sideA = sideA;
+            this.sideB = sideB;
+            this.sideC = sideC;
+        }
+
+        public override float CalculateArea()
+        {
+            float s = (sideA + sideB + sideC) / 2;
+            return (float)Math.Sqrt(s*(s-sideA)*s*(s-sideB)*s*(s-sideC));
+        }
+
+        public override float CalculatePerimeter()
+        {
+            return sideA + sideB + sideC;
+        }
+    }
     #endregion
     class Program
     {
         static void Main(string[] args)
         {
-            while(true)
+            while (true)
             {
                 Console.WriteLine("Wybierz kształt do obliczenia: ");
                 Console.WriteLine("1. Prostokąt");
@@ -81,7 +105,7 @@ namespace project1_dziedziczenie
                 Console.Write("Twój wybór: ");
                 int choice = int.Parse(Console.ReadLine());
 
-                switch(choice)
+                switch (choice)
                 {
                     case 1:
                         Rectangle rect = new Rectangle();
@@ -100,10 +124,25 @@ namespace project1_dziedziczenie
                         Console.WriteLine("Obwód koła: {0}", circ.CalculatePerimeter());
                         break;
                     case 3:
-
+                        float sideA = GetValidInput("Podaj długość boku A: ");
+                        float sideB = GetValidInput("Podaj długość boku B: ");
+                        float sideC = GetValidInput("Podaj długość boku C: ");
+                        if (IsValidTriangle(sideA, sideB, sideC))
+                        {
+                            Triangle triangle = new Triangle(sideA, sideB, sideC);
+                            Console.WriteLine("Powierzchnia trójkąta: {0}", triangle.CalculateArea());
+                            Console.WriteLine("Obwód trójkąta: {0}", triangle.CalculatePerimeter());
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Podane długości boków nie tworzą trójkąta. Spróbuj ponownie");
+                            Console.ResetColor();
+                        }
+                        break;
                     case 6:
                         return;
-                        
+
                     default:
                         Console.WriteLine("Nieprawidłowy wybór. Spróbuj ponownie");
                         break;
@@ -121,10 +160,15 @@ namespace project1_dziedziczenie
             Console.ReadKey();
         }
 
+        private static bool IsValidTriangle(float sideA, float sideB, float sideC)
+        {
+            return (sideA + sideB > sideC) && (sideB + sideC > sideA) && (sideA + sideC > sideB);
+        }
+
         private static float GetValidInput(string prompt)
         {
             float input;
-            while(true)
+            while (true)
             {
                 Console.Write(prompt);
                 if (float.TryParse(Console.ReadLine(), out input) && input > 0)
@@ -158,6 +202,6 @@ namespace project1_dziedziczenie
             }
         }*/
 
-        
+
     }
 }
