@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.35229.62
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project2_dziedziczenie_kompozycja_biblioteka", "project2_dziedziczenie_kompozycja_biblioteka.csproj", "{E0673BFA-1CD6-4347-9384-F1C19EB72A59}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0673BFA-1CD6-4347-9384-F1C19EB72A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0673BFA-1CD6-4347-9384-F1C19EB72A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0673BFA-1CD6-4347-9384-F1C19EB72A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0673BFA-1CD6-4347-9384-F1C19EB72A59}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C7547213-4751-4552-AA68-1B75AB9F6F05}
+	EndGlobalSection
+EndGlobal
