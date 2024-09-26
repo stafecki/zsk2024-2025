@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,7 +34,7 @@ namespace project2_dziedziczenie_kompozycja_biblioteka
         public void DisplayBooks()
         {
             Console.WriteLine("Lista książek: ");
-            foreach(Book book in BookList)
+            foreach (Book book in BookList)
             {
                 Console.WriteLine(book.Title);
             }
@@ -51,7 +51,7 @@ namespace project2_dziedziczenie_kompozycja_biblioteka
         public void BorrowBook(Book book)
         {
             BorrowedBooksList.Add(book);
-            Console.WriteLine("Dodano książke o tytule: \"{0}\"", book.Title);
+            Console.WriteLine($"Czytelnik {FirstName} {LastName} wypożyczył książke o tytule: \"{book.Title}\"");
         }
     }
 
@@ -68,6 +68,39 @@ namespace project2_dziedziczenie_kompozycja_biblioteka
         }
     }
 
+    public class Library
+    {
+        public List<Book> BooksList { get; set; }
+        public List<Reader> ReaderList { get; set; }
+        public Library()
+        {
+            BooksList = new List<Book>();
+            ReaderList = new List<Reader>();
+        }
+        public void AddBook(Book book)
+        {
+            BooksList.Add(book);
+            Console.WriteLine($"Dodano książkę: \"{book.Title}\"");
+        }
+        public void AddReader(Reader reader)
+        {
+            ReaderList.Add(reader);
+            Console.WriteLine($"Dodano czytelnika: {reader.FirstName} {reader.LastName}");
+        }
+        public void BorrowBook(Reader reader, Book book)
+        {
+            if (BooksList.Contains(book))
+            {
+                reader.BorrowBook(book);
+                BooksList.Remove(book);
+            }
+            else
+            {
+                Console.WriteLine($"Książka o tytule \"{book.Title}\" nie jest dostępna w bibliotece");
+            }
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
@@ -77,7 +110,11 @@ namespace project2_dziedziczenie_kompozycja_biblioteka
             author1.AddBook(book1);
 
             Reader reader1 = new Reader("Jan", "Kowalski");
-            reader1.BorrowBook(book1);
+            Library library1 = new Library();
+            library1.AddBook(book1);
+            library1.AddReader(reader1);
+            library1.BorrowBook(reader1 , book1);
+            /*library1.BorrowBook(reader1 , book1);*/
             Console.ReadKey();
         }
     }
