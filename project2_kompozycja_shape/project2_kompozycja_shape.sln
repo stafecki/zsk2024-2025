@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project2_kompozycja_shape", "project2_kompozycja_shape.csproj", "{A23D7050-75BC-461C-8A8A-69DA9D35908E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A23D7050-75BC-461C-8A8A-69DA9D35908E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A23D7050-75BC-461C-8A8A-69DA9D35908E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A23D7050-75BC-461C-8A8A-69DA9D35908E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A23D7050-75BC-461C-8A8A-69DA9D35908E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {40DDC101-BE86-4FF2-9CD1-53E3C1B603D1}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,7 @@
+C:\Users\student\Desktop\project2_kompozycja_shape\bin\Debug\project2_kompozycja_shape.exe.config
+C:\Users\student\Desktop\project2_kompozycja_shape\bin\Debug\project2_kompozycja_shape.exe
+C:\Users\student\Desktop\project2_kompozycja_shape\bin\Debug\project2_kompozycja_shape.pdb
+C:\Users\student\Desktop\project2_kompozycja_shape\obj\Debug\project2_kompozycja_shape.csproj.AssemblyReference.cache
+C:\Users\student\Desktop\project2_kompozycja_shape\obj\Debug\project2_kompozycja_shape.csproj.CoreCompileInputs.cache
+C:\Users\student\Desktop\project2_kompozycja_shape\obj\Debug\project2_kompozycja_shape.exe
+C:\Users\student\Desktop\project2_kompozycja_shape\obj\Debug\project2_kompozycja_shape.pdb
