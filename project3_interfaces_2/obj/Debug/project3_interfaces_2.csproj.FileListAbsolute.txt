@@ -1,0 +1,7 @@
+C:\Users\student\Desktop\project3_interfaces_2\bin\Debug\project3_interfaces_2.exe.config
+C:\Users\student\Desktop\project3_interfaces_2\bin\Debug\project3_interfaces_2.exe
+C:\Users\student\Desktop\project3_interfaces_2\bin\Debug\project3_interfaces_2.pdb
+C:\Users\student\Desktop\project3_interfaces_2\obj\Debug\project3_interfaces_2.csproj.AssemblyReference.cache
+C:\Users\student\Desktop\project3_interfaces_2\obj\Debug\project3_interfaces_2.csproj.CoreCompileInputs.cache
+C:\Users\student\Desktop\project3_interfaces_2\obj\Debug\project3_interfaces_2.exe
+C:\Users\student\Desktop\project3_interfaces_2\obj\Debug\project3_interfaces_2.pdb
