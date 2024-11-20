@@ -1,0 +1,7 @@
+C:\Users\student\Desktop\project4_delegaty\bin\Debug\project4_delegaty.exe.config
+C:\Users\student\Desktop\project4_delegaty\bin\Debug\project4_delegaty.exe
+C:\Users\student\Desktop\project4_delegaty\bin\Debug\project4_delegaty.pdb
+C:\Users\student\Desktop\project4_delegaty\obj\Debug\project4_delegaty.csproj.AssemblyReference.cache
+C:\Users\student\Desktop\project4_delegaty\obj\Debug\project4_delegaty.csproj.CoreCompileInputs.cache
+C:\Users\student\Desktop\project4_delegaty\obj\Debug\project4_delegaty.exe
+C:\Users\student\Desktop\project4_delegaty\obj\Debug\project4_delegaty.pdb
