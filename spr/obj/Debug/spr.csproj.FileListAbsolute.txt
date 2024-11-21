@@ -1,7 +1,0 @@
-C:\Users\student\source\repos\spr\bin\Debug\spr.exe.config
-C:\Users\student\source\repos\spr\bin\Debug\spr.exe
-C:\Users\student\source\repos\spr\bin\Debug\spr.pdb
-C:\Users\student\source\repos\spr\obj\Debug\spr.csproj.AssemblyReference.cache
-C:\Users\student\source\repos\spr\obj\Debug\spr.csproj.CoreCompileInputs.cache
-C:\Users\student\source\repos\spr\obj\Debug\spr.exe
-C:\Users\student\source\repos\spr\obj\Debug\spr.pdb
