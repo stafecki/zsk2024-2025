@@ -1,52 +1,119 @@
-﻿namespace project4_delegaty_powiadomienia_menu
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace project4_delegaty_powiadomienia_menu
 {
-    internal class Program
+    public delegate void NotificationHandler(string message);
+
+    public interface INotifier
     {
-        public delegate void NotificationHandler(string message);
-
-        public class EmailNotifier
+        void Notification(string message);
+    }
+    public class EmailNotifier : INotifier
+    {
+        public void Notification(string message)
         {
-            public void SendEmail(string message)
+            try
             {
-                Console.WriteLine($"Email wysłany: {message}");
+                Console.WriteLine("Email wysłany");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd: {ex.Message}");
             }
         }
+    }
 
-        public class SMSNotifier
+    public class SMSNotifier : INotifier
+    {
+        public void Notification(string message)
         {
-            public void SendSMS(string message)
+            try
             {
-                Console.WriteLine($"SMS wysłany: {message}");
+                Console.WriteLine("Email wysłany");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd: {ex.Message}");
             }
         }
+    }
 
-        public class PushNotifier
+    public class PushNotifier : INotifier
+    {
+        public void Notification(string message)
         {
-            public void SendPush(string message)
+            try
             {
-                Console.WriteLine($"Powiadomiene push wysłane: {message}");
+                Console.WriteLine("Email wysłany");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Błąd: {ex.Message}");
             }
         }
+    }
 
-        public class NotificationManager
+    public class NotificationManager
+    {
+        public NotificationHandler Notify;
+
+        public void AddNotificationMethod(NotificationHandler handler)
         {
-            public NotificationHandler Notify;
-
-            public void AddNotificationMethod(NotificationHandler handler)
+            if (Notify != null && Notify.GetInvocationList().Contains(handler))
+            {
+                Console.WriteLine("Ta metoda powiadomienia jest już dodana");
+            }
+            else
             {
                 Notify += handler;
-            }
-
-            public void RemoveNotificationMethod(NotificationHandler handler)
-            {
-                Notify -= handler;
-            }
-
-            public void SendNotification(string message)
-            {
-                Notify?.Invoke(message);
+                Console.WriteLine("Dodano metodę powiadomienia");
+                return;
             }
         }
+
+        public void RemoveNotificationMethod(NotificationHandler handler)
+        {
+            if (Notify == null && !Notify.GetInvocationList().Contains(handler))
+            {
+                Console.WriteLine("Nie można usunąć tej metody powiadomienia");
+            }
+            else
+            {
+                Notify -= handler;
+                Console.WriteLine("Usunięto metodę powiadomienia");
+                return;
+            }
+        }
+
+        public void SendNotification(string message)
+        {
+            if(Notify == null)
+            {
+                Console.WriteLine("Brak dostępnych powiadomień, dodaj conajmniej jedną metodę");
+                return;
+            }
+            foreach(var handler in Notify.GetInvocationList())
+            {
+                try
+                {
+                    handler.DynamicInvoke(message);
+                    string logEntry = $"";
+                    File.AppendAllText("log.txt", logEntry);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Błąd podczas wysyłania: {ex.Message}");
+                }
+            }
+        }
+    }
+    internal class Program
+    {
 
         public static void ShowMenu()
         {
@@ -68,7 +135,7 @@
             int input = 0;
             while (true)
             {
-                if(int.TryParse(Console.ReadLine(), out input))
+                if (int.TryParse(Console.ReadLine(), out input))
                 {
                     return input;
                 }
@@ -110,40 +177,40 @@
                 {
                     ShowMenu();
                     int choice = ValidIntInput("Podaj wybór: ");
-                    switch(choice)
+                    switch (choice)
                     {
                         case 1:
-                            notificationManager.AddNotificationMethod(emailNotifier.SendEmail);
+                            notificationManager.AddNotificationMethod(emailNotifier.Notification);
                             Console.WriteLine("Dodano powiadomienia email");
                             Console.Write("Kliknij dowolny przycisk aby przejść dalej . . .");
                             Console.ReadKey();
                             break;
                         case 2:
-                            notificationManager.AddNotificationMethod(smsNotifier.SendSMS);
+                            notificationManager.AddNotificationMethod(smsNotifier.Notification);
                             Console.WriteLine("Dodano powiadomienia sms");
                             Console.Write("Kliknij dowolny przycisk aby przejść dalej . . .");
                             Console.ReadKey();
                             break;
                         case 3:
-                            notificationManager.AddNotificationMethod(pushNotifier.SendPush);
+                            notificationManager.AddNotificationMethod(pushNotifier.Notification);
                             Console.WriteLine("Dodano powiadomienia push");
                             Console.Write("Kliknij dowolny przycisk aby przejść dalej . . .");
                             Console.ReadKey();
                             break;
                         case 4:
-                            notificationManager.RemoveNotificationMethod(emailNotifier.SendEmail);
+                            notificationManager.RemoveNotificationMethod(emailNotifier.Notification);
                             Console.WriteLine("Usunięto powiadomienia email");
                             Console.Write("Kliknij dowolny przycisk aby przejść dalej . . .");
                             Console.ReadKey();
                             break;
                         case 5:
-                            notificationManager.RemoveNotificationMethod(smsNotifier.SendSMS);
+                            notificationManager.RemoveNotificationMethod(smsNotifier.Notification);
                             Console.WriteLine("Usunięto powiadomienia sms");
                             Console.Write("Kliknij dowolny przycisk aby przejść dalej . . .");
                             Console.ReadKey();
                             break;
                         case 6:
-                            notificationManager.RemoveNotificationMethod(pushNotifier.SendPush);
+                            notificationManager.RemoveNotificationMethod(pushNotifier.Notification);
                             Console.WriteLine("Usunięto powiadomienia push");
                             Console.Write("Kliknij dowolny przycisk aby przejść dalej . . .");
                             Console.ReadKey();
