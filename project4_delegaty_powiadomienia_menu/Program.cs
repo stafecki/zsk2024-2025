@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,11 +20,11 @@ namespace project4_delegaty_powiadomienia_menu
         {
             try
             {
-                Console.WriteLine("Email wysłany");
+                Console.WriteLine($"Email wysłany: {message}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Błąd: {ex.Message}");
+                Console.WriteLine($"Błąd podczas wysyłania Email: {ex.Message}");
             }
         }
     }
@@ -34,11 +35,11 @@ namespace project4_delegaty_powiadomienia_menu
         {
             try
             {
-                Console.WriteLine("Email wysłany");
+                Console.WriteLine($"SMS wysłany: {message}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Błąd: {ex.Message}");
+                Console.WriteLine($"Błąd podczas wysyłania SMS: {ex.Message}");
             }
         }
     }
@@ -49,11 +50,11 @@ namespace project4_delegaty_powiadomienia_menu
         {
             try
             {
-                Console.WriteLine("Email wysłany");
+                Console.WriteLine($"Push wysłany: {message}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Błąd: {ex.Message}");
+                Console.WriteLine($"Błąd podczas wysyłania Push: {ex.Message}");
             }
         }
     }
@@ -78,7 +79,7 @@ namespace project4_delegaty_powiadomienia_menu
 
         public void RemoveNotificationMethod(NotificationHandler handler)
         {
-            if (Notify == null && !Notify.GetInvocationList().Contains(handler))
+            if (Notify == null || !Notify.GetInvocationList().Contains(handler))
             {
                 Console.WriteLine("Nie można usunąć tej metody powiadomienia");
             }
@@ -92,17 +93,17 @@ namespace project4_delegaty_powiadomienia_menu
 
         public void SendNotification(string message)
         {
-            if(Notify == null)
+            if (Notify == null)
             {
                 Console.WriteLine("Brak dostępnych powiadomień, dodaj conajmniej jedną metodę");
                 return;
             }
-            foreach(var handler in Notify.GetInvocationList())
+            foreach (var handler in Notify.GetInvocationList())
             {
                 try
                 {
                     handler.DynamicInvoke(message);
-                    string logEntry = $"";
+                    string logEntry = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Wysłano: {handler.Method.Name}, wiadomość: {message}{Environment.NewLine}";
                     File.AppendAllText("log.txt", logEntry);
                 }
                 catch (Exception ex)
@@ -111,10 +112,41 @@ namespace project4_delegaty_powiadomienia_menu
                 }
             }
         }
+
+        public void ListNotificationMethods()
+        {
+            if(Notify == null )
+            {
+                Console.WriteLine("Brak zarejestrowanych metod powiadomień");
+                return;
+            }
+
+            Console.WriteLine("Zarejestrowane metody powiadomień: ");
+
+            var displayHandlers = new HashSet<string>();
+
+            foreach(var handler in Notify.GetInvocationList())
+            {
+                var target = handler.Target;
+                var methodName = handler.Method.Name;
+                var className = target?.GetType().FullName ?? "Nieznany";
+
+                var uniqueKey = $"{className}.{methodName}";
+
+                if(!displayHandlers.Contains(uniqueKey))
+                {
+                    displayHandlers.Add(uniqueKey);
+                    Console.WriteLine($"- Klasa: {className}, metoda: {methodName}");
+                }
+                else
+                {
+                    Console.WriteLine($"- Klasa: {className}, metoda: {methodName}");
+                }
+            }
+        }
     }
     internal class Program
     {
-
         public static void ShowMenu()
         {
             Console.Clear();
@@ -126,8 +158,10 @@ namespace project4_delegaty_powiadomienia_menu
             Console.WriteLine("5. Usuń powiadomienie sms");
             Console.WriteLine("6. Usuń powiadomienie push");
             Console.WriteLine("7. Wyślij powiadomienia");
-            Console.WriteLine("8. Wyjdź");
+            Console.WriteLine("8. Pokaż zarejestrowane metody powiadomień");
+            Console.WriteLine("9. Wyjdź");
         }
+
 
         public static int ValidIntInput(string prompt)
         {
@@ -223,6 +257,11 @@ namespace project4_delegaty_powiadomienia_menu
                             Console.ReadKey();
                             break;
                         case 8:
+                            notificationManager.ListNotificationMethods();
+                            Console.Write("Kliknij dowolny przycisk aby przejść dalej . . .");
+                            Console.ReadKey();
+                            break;
+                        case 9:
                             return;
                         default:
                             Console.WriteLine("Nieprawidłowa opcja, spróbuj ponownie");
@@ -239,4 +278,3 @@ namespace project4_delegaty_powiadomienia_menu
         }
     }
 }
-
